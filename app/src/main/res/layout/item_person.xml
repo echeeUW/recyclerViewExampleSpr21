@@ -5,15 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp">
+    android:padding="12dp"
+    android:id="@+id/itemRoot">
 
     <ImageView
+        android:id="@+id/ivProfilePic"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@drawable/ic_person"
         app:tint="#3F51B5"/>
 
     <TextView
+        android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name of person"
