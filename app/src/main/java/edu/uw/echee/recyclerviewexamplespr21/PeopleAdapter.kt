@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import edu.uw.echee.recyclerviewexamplespr21.databinding.ItemPersonBinding
 
-class PeopleAdapter(private var listOfPeople: List<String>): RecyclerView.Adapter<PeopleAdapter.PersonViewHolder>() {
+class PeopleAdapter(private var listOfPeople: List<Person>): RecyclerView.Adapter<PeopleAdapter.PersonViewHolder>() {
 
-    var onPersonClickListener: (position: Int, name: String) -> Unit = { _, _ ->  }
+    var onPersonClickListener: (position: Int, person: Person) -> Unit = { position, person -> }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonViewHolder {
         val binding = ItemPersonBinding.inflate(LayoutInflater.from(parent.context))
@@ -15,12 +15,13 @@ class PeopleAdapter(private var listOfPeople: List<String>): RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: PersonViewHolder, position: Int) {
-        val person = listOfPeople[position]
+        val person: Person = listOfPeople[position]
         with(holder.binding) {
-            tvName.text = person
 
-            itemRoot.setOnClickListener {
-               onPersonClickListener(position, person)
+            tvName.text = root.context.getString(R.string.name_with_age_format, person.name, person.age)
+
+            root.setOnClickListener {
+                onPersonClickListener(position, person)
             }
         }
     }
@@ -28,7 +29,7 @@ class PeopleAdapter(private var listOfPeople: List<String>): RecyclerView.Adapte
     override fun getItemCount(): Int = listOfPeople.size
 
 
-    fun updatePeople(newListOfPeople: List<String>) {
+    fun updatePeople(newListOfPeople: List<Person>) {
         this.listOfPeople = newListOfPeople
 
         notifyDataSetChanged()
