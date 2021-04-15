@@ -2,6 +2,7 @@ package edu.uw.echee.recyclerviewexamplespr21
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import edu.uw.echee.recyclerviewexamplespr21.databinding.ItemPersonBinding
 
@@ -30,9 +31,12 @@ class PeopleAdapter(private var listOfPeople: List<Person>): RecyclerView.Adapte
 
 
     fun updatePeople(newListOfPeople: List<Person>) {
-        this.listOfPeople = newListOfPeople
 
-        notifyDataSetChanged()
+        val callback = PeopleDiffCallback(newListOfPeople, listOfPeople)
+        val result = DiffUtil.calculateDiff(callback)
+        result.dispatchUpdatesTo(this)
+
+        this.listOfPeople = newListOfPeople
     }
 
     class PersonViewHolder(val binding: ItemPersonBinding): RecyclerView.ViewHolder(binding.root)
